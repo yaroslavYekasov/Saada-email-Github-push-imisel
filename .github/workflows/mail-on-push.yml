@@ -1,0 +1,22 @@
+name: Send email on push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  mail_on_push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send mail
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.example.com
+          server_port: 587
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: "Notification: New Push to Repository"
+          body: "A new push has been made to the repository."
+          to: "recipient@example.com"
+          from: "sender@example.com"
