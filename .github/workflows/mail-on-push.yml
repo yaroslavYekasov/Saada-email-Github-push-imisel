@@ -3,25 +3,27 @@ name: Send email on push
 on:
   push:
     branches:
-      - main
+      - main # Kontrollib, kas push on tehtud 'main' harusse
 
 jobs:
   mail_on_push:
     runs-on: ubuntu-latest
     steps:
       - name: Send mail
+        # sasutatakse GitHubi tegevust e-kirjade saatmiseks
         uses: dawidd6/action-send-mail@v3
         with:
+          # SMTP serveri aadress ja port Gmaili jaoks
           server_address: smtp.gmail.com
           server_port: 465
+          # kasutajanimi ja parool, mis on salvestatud GitHubi saladustesse
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: "Push Notification for ${{ github.repository }}"
           to: "miljukovad@gmail.com"
           body: |
-            A push was made to the repository: ${{ github.repository }}
-            Commit message: ${{ github.event.head_commit.message }}
-            Pushed by: ${{ github.event.pusher.name }}
+            Tehti push järgmisele repositooriumile: ${{ github.repository }}
+            Commiti sõnum: ${{ github.event.head_commit.message }}
+            Pushed: ${{ github.event.pusher.name }}
+          # saatja nimi, mis kuvatakse e-kirjas
           from: Github actions
-
-          
