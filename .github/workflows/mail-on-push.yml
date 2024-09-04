@@ -17,11 +17,11 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: "Push Notification for ${{ github.repository }}"
+          to: "miljukovad@gmail.com"
           body: |
             A push was made to the repository: ${{ github.repository }}
             Commit message: ${{ github.event.head_commit.message }}
             Pushed by: ${{ github.event.pusher.name }}
-          to: "miljukovad@gmail.com"
           from: Github actions
 
           
