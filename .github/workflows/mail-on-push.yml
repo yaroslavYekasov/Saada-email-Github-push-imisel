@@ -12,11 +12,16 @@ jobs:
       - name: Send mail
         uses: dawidd6/action-send-mail@v3
         with:
-          server_address: smtp.example.com
-          server_port: 587
-          username: ${{ secrets.SMTP_USERNAME }}
-          password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "Notification: New Push to Repository"
-          body: "A new push has been made to the repository."
-          to: "recipient@example.com"
-          from: "sender@example.com"
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: "Push Notification for ${{ github.repository }}"
+          body: |
+            A push was made to the repository: ${{ github.repository }}
+            Commit message: ${{ github.event.head_commit.message }}
+            Pushed by: ${{ github.event.pusher.name }}
+          to: "miljukovad@gmail.com"
+          from: Github actions
+
+          
